@@ -9,8 +9,9 @@
     <StackPanel Margin="10">
         <GroupBox Header="列表控制">
             <StackPanel Margin="0" Orientation="Horizontal" Width="762">
-                <Button x:Name="RefreshButton" Content="刷新" Height="24" Width="72" Margin="10,0" Click="RefreshButton_Click"/>
-                <Button x:Name="DeleteButton" Content="删除" Width="72" Height="24" Margin="10,0" Click="DeleteButton_Click"/>
+                <Button x:Name="RefreshButton" Content="刷新" Width="96" Height="32" Margin="10,0" Click="RefreshButton_Click"/>
+                <Button x:Name="DeleteButton" Content="删除" Width="96" Height="32" Margin="10,0" Click="DeleteButton_Click"/>
+                <Button x:Name="CleanButton" Content="清理无效配置" Width="96" Height="32" Margin="10,0" Click="CleanButton_Click"/>
             </StackPanel>
         </GroupBox>
         <ListView x:Name="listView" Margin="0,10" Height="200" SelectionChanged="ListView_SelectionChanged" >

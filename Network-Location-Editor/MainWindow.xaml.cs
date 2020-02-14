@@ -40,6 +40,7 @@ namespace NetworkLocationEditor
             if (selectedItems.Count == 0)
             {
                 MessageBox.Show("没有选中的配置", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             string text = "确定要删除" + selectedItems.Count + "个网络配置吗";
             MessageBoxResult messageBoxResult = MessageBox.Show(text, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
@@ -51,6 +52,11 @@ namespace NetworkLocationEditor
                 }
                 RefreshList();
             }
+        }
+
+        private void CleanButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -66,5 +72,6 @@ namespace NetworkLocationEditor
                 selectedItems.Add((NetworkLocation)item);
             }
         }
+
     }
 }
