@@ -36,7 +36,19 @@ namespace NetworkLocationEditor.Mapper
 
         public void Remove(string id)
         {
-            throw new NotImplementedException();
+            if (id == null || id.Trim().Length == 0)
+            {
+                return;
+            }
+            RegistryKey localMachine = Registry.LocalMachine;
+            using (RegistryKey parent = localMachine.OpenSubKey(PATH, true))
+            {
+                string[] profiles = parent.GetSubKeyNames();
+                if (Array.Exists(profiles, element => element == id))
+                {
+                    parent.DeleteSubKey(id);
+                }
+            }
         }
 
     }

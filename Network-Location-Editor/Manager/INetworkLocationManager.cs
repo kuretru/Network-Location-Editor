@@ -1,9 +1,5 @@
-﻿using System;
+﻿using NetworkLocationEditor.Entity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NetworkLocationEditor.Entity;
 
 namespace NetworkLocationEditor.Manager
 {
@@ -15,6 +11,12 @@ namespace NetworkLocationEditor.Manager
         /// </summary>
         /// <returns>所有NetworkLocation</returns>
         List<NetworkLocation> List();
+
+        /// <summary>
+        /// 删除指定NetworkLocation
+        /// </summary>
+        /// <param name="record">指定NetworkLocation</param>
+        void Remove(NetworkLocation record);
 
     }
 }

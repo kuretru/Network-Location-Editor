@@ -40,5 +40,10 @@ namespace NetworkLocationEditor.Manager
             return result;
         }
 
+        public void Remove(NetworkLocation record)
+        {
+            networkProfileMapper.Remove(record.ProfileId);
+            networkSignatureMapper.Remove(record.SignatureId);
+        }
     }
 }
