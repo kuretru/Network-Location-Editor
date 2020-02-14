@@ -20,10 +20,20 @@ namespace NetworkLocationEditor
             RefreshList();
         }
 
-        public void RefreshList()
+        private void RefreshList()
         {
             List<NetworkLocation> locations = networkLocationManager.List();
             listView.ItemsSource = locations;
+        }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshList();
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
