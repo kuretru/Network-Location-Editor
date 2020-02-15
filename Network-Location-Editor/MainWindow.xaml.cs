@@ -30,6 +30,14 @@ namespace NetworkLocationEditor
             listView.ItemsSource = locations;
         }
 
+        private void DeleteList(List<NetworkLocation> list)
+        {
+            foreach (NetworkLocation record in list)
+            {
+                networkLocationManager.Remove(record);
+            }
+        }
+
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             RefreshList();
@@ -46,17 +54,26 @@ namespace NetworkLocationEditor
             MessageBoxResult messageBoxResult = MessageBox.Show(text, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (messageBoxResult == MessageBoxResult.OK)
             {
-                foreach(NetworkLocation record in selectedItems)
-                {
-                    networkLocationManager.Remove(record);
-                }
+                DeleteList(selectedItems);
                 RefreshList();
             }
         }
 
         private void CleanButton_Click(object sender, RoutedEventArgs e)
         {
-
+            List<NetworkLocation> invalids = networkLocationManager.ListInvalid();
+            if (invalids.Count == 0)
+            {
+                MessageBox.Show("不存在无效的配置", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            string text = "确定要删除" + invalids.Count + "个无效的网络配置吗";
+            MessageBoxResult messageBoxResult = MessageBox.Show(text, "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (messageBoxResult == MessageBoxResult.OK)
+            {
+                DeleteList(invalids);
+                RefreshList();
+            }
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -1,10 +1,6 @@
 ﻿using NetworkLocationEditor.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NetworkLocationEditor.Mapper;
+using System.Collections.Generic;
 
 namespace NetworkLocationEditor.Manager
 {
@@ -25,14 +21,14 @@ namespace NetworkLocationEditor.Manager
             List<NetworkLocation> result = new List<NetworkLocation>();
             List<NetworkProfile> profiles = networkProfileMapper.List();
             Dictionary<string, NetworkProfile> profileDic = new Dictionary<string, NetworkProfile>();
-            foreach(NetworkProfile profile in profiles)
+            foreach (NetworkProfile profile in profiles)
             {
                 profileDic.Add(profile.Id, profile);
             }
             List<NetworkSignature> signatures = networkSignatureMapper.List();
-            foreach(NetworkSignature signature in signatures)
+            foreach (NetworkSignature signature in signatures)
             {
-                if(profileDic.ContainsKey(signature.ProfileGuid))
+                if (profileDic.ContainsKey(signature.ProfileGuid))
                 {
                     result.Add(new NetworkLocation(profileDic[signature.ProfileGuid], signature));
                 }
@@ -40,10 +36,56 @@ namespace NetworkLocationEditor.Manager
             return result;
         }
 
+        public List<NetworkLocation> ListInvalid()
+        {
+            List<NetworkProfile> profiles = networkProfileMapper.List();
+            Dictionary<string, NetworkProfile> profileDic = new Dictionary<string, NetworkProfile>();
+            foreach (NetworkProfile profile in profiles)
+            {
+                profileDic.Add(profile.Id, profile);
+            }
+
+            List<NetworkSignature> signatures = networkSignatureMapper.List();
+            Dictionary<string, NetworkSignature> signatureDic = new Dictionary<string, NetworkSignature>();
+            foreach (NetworkSignature signature in signatures)
+            {
+                signatureDic.Add(signature.Id, signature);
+            }
+
+            List<NetworkLocation> locations = List();
+            foreach (NetworkLocation location in locations)
+            {
+                profileDic.Remove(location.ProfileId);
+                signatureDic.Remove(location.SignatureId);
+            }
+
+            List<NetworkLocation> result = new List<NetworkLocation>();
+            foreach (NetworkProfile profile in profileDic.Values)
+            {
+                result.Add(new NetworkLocation(profile, new NetworkSignature("")));
+            }
+            foreach (NetworkSignature signature in signatureDic.Values)
+            {
+                result.Add(new NetworkLocation(new NetworkProfile(""), signature));
+            }
+            return result;
+        }
+
         public void Remove(NetworkLocation record)
         {
-            networkProfileMapper.Remove(record.ProfileId);
-            networkSignatureMapper.Remove(record.SignatureId);
+            if (record == null)
+            {
+                return;
+            }
+            if (record.ProfileId != null && record.ProfileId.Trim() != "")
+            {
+                networkProfileMapper.Remove(record.ProfileId);
+            }
+            if (record.SignatureId != null && record.SignatureId.Trim() != "")
+            {
+                networkSignatureMapper.Remove(record.SignatureId);
+            }
         }
+
     }
 }
