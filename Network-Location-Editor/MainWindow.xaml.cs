@@ -28,6 +28,7 @@ namespace NetworkLocationEditor
         {
             List<NetworkLocation> locations = networkLocationManager.List();
             listView.ItemsSource = locations;
+            ListCountLabel.Content = "共有" + locations.Count + "个网络配置";
         }
 
         private void DeleteList(List<NetworkLocation> list)
