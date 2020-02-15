@@ -5,16 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetworkLocationEditor"
         mc:Ignorable="d"
-        Title="网络位置编辑器" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <StackPanel Margin="10">
-        <GroupBox Header="列表控制" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
+        Title="网络位置编辑器" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinHeight="350" MinWidth="700">
+    <DockPanel Margin="10">
+        <GroupBox Header="列表控制" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" DockPanel.Dock="Top">
             <StackPanel Margin="0" Orientation="Horizontal" Width="762">
-                <Button x:Name="RefreshButton" Content="刷新" Width="96" Height="32" Margin="10,0" Click="RefreshButton_Click"/>
-                <Button x:Name="DeleteButton" Content="删除" Width="96" Height="32" Margin="10,0" Click="DeleteButton_Click"/>
-                <Button x:Name="CleanButton" Content="清理无效配置" Width="96" Height="32" Margin="10,0" Click="CleanButton_Click"/>
+                <Button x:Name="RefreshButton" Content="刷新" Width="96" Height="32" Margin="10" Click="RefreshButton_Click"/>
+                <Button x:Name="DeleteButton" Content="删除" Width="96" Height="32" Margin="10" Click="DeleteButton_Click"/>
+                <Button x:Name="CleanButton" Content="清理无效配置" Width="96" Height="32" Margin="10" Click="CleanButton_Click"/>
+                <Label x:Name="ListCountLabel" Content="网络配置计数" Margin="50,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
         </GroupBox>
-        <ListView x:Name="listView" Margin="0,10,0,0" Height="200" SelectionChanged="ListView_SelectionChanged" >
+        <GroupBox Header="网络位置编辑" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
+            <Grid Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="111*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="名称" HorizontalAlignment="Right" Margin="0,12,0,12.4" VerticalAlignment="Center"/>
+                <Label Content="描述" HorizontalAlignment="Right" Margin="0,11.6,0,12" Grid.Row="1" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" Margin="5,17,0,15.4" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" Margin="5,16.6,0,15" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                <Label Content="网关MAC" Grid.Column="2" HorizontalAlignment="Right" Margin="0,12,0,12.4" VerticalAlignment="Center"/>
+                <Label Content="域名后缀" Grid.Column="2" HorizontalAlignment="Right" Margin="0,11.6,0,12" Grid.Row="1" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="3" Margin="5,17,0,15.4" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="3" Margin="5,16.6,0,15" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                <Label Content="网络类别" Grid.Column="4" HorizontalAlignment="Right" Margin="0,12,0,12.4" VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="5" Margin="5,0,0,0" VerticalAlignment="Center">
+                    <ComboBoxItem Content="公有网络"/>
+                    <ComboBoxItem Content="专有网络"/>
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+        <ListView x:Name="listView" Margin="1,10,0,0" SelectionChanged="ListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="名称" DisplayMemberBinding="{Binding Name}"/>
@@ -26,7 +57,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="ListCountLabel" Content="Label" Margin="0,0,0,5"/>
-        <GroupBox Header="网络位置编辑" Height="100" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-    </StackPanel>
+    </DockPanel>
 </Window>
