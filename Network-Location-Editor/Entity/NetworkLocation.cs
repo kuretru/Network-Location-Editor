@@ -15,17 +15,39 @@ namespace NetworkLocationEditor.Entity
         private DateTime dateCreated; // 创建时间
         private DateTime dateLastConnected; // 上一次连接时间
 
+        public NetworkLocation()
+        {
+
+        }
+
         public NetworkLocation(NetworkProfile profile, NetworkSignature signature)
         {
-            this.signatureId = signature.Id;
-            this.profileId = profile.Id;
-            this.name = profile.ProfileName;
-            this.description = profile.Description;
-            this.defaultGatewayMac = signature.DefaultGatewayMac;
-            this.dnsSuffix = signature.DnsSuffix;
-            this.category = profile.Category;
-            this.dateCreated = profile.DateCreated;
-            this.dateLastConnected = profile.DateLastConnected;
+            signatureId = signature.Id;
+            profileId = profile.Id;
+            name = profile.ProfileName;
+            description = profile.Description;
+            defaultGatewayMac = signature.DefaultGatewayMac;
+            dnsSuffix = signature.DnsSuffix;
+            category = profile.Category;
+            dateCreated = profile.DateCreated;
+            dateLastConnected = profile.DateLastConnected;
+        }
+
+        public NetworkLocation Clone()
+        {
+            NetworkLocation result = new NetworkLocation
+            {
+                signatureId = signatureId,
+                profileId = profileId,
+                name = name,
+                description = description,
+                defaultGatewayMac = defaultGatewayMac,
+                dnsSuffix = dnsSuffix,
+                category = category,
+                dateCreated = dateCreated,
+                dateLastConnected = dateLastConnected
+            };
+            return result;
         }
 
         public string SignatureId { get => signatureId; set => signatureId = value; }

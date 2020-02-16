@@ -14,13 +14,13 @@ namespace NetworkLocationEditor
 
         private readonly INetworkLocationManager networkLocationManager;
 
-        private List<NetworkLocation> selectedItems;
+        private readonly List<NetworkLocation> selectedItems;
 
         public MainWindow()
         {
             InitializeComponent();
-            this.networkLocationManager = new NetworkLocationManager();
-            this.selectedItems = new List<NetworkLocation>();
+            networkLocationManager = new NetworkLocationManager();
+            selectedItems = new List<NetworkLocation>();
             RefreshList();
         }
 
@@ -106,7 +106,7 @@ namespace NetworkLocationEditor
             if (listView.SelectedItem != null)
             {
                 NetworkLocation location = (NetworkLocation)listView.SelectedItem;
-                editorGrid.DataContext = location;
+                editorGrid.DataContext = location.Clone() ;
             }
         }
     }
