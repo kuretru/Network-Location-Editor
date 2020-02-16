@@ -28,7 +28,7 @@ namespace NetworkLocationEditor
         {
             List<NetworkLocation> locations = networkLocationManager.List();
             listView.ItemsSource = locations;
-            ListCountLabel.Content = "共有" + locations.Count + "个网络配置";
+            listCountLabel.Content = "共有" + locations.Count + "个网络配置";
         }
 
         private void DeleteList(List<NetworkLocation> list)
@@ -42,6 +42,7 @@ namespace NetworkLocationEditor
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             RefreshList();
+            editorGrid.DataContext = null;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -89,7 +90,17 @@ namespace NetworkLocationEditor
             {
                 selectedItems.Add((NetworkLocation)item);
             }
+
+            if (listView.SelectedItem != null)
+            {
+                NetworkLocation location = (NetworkLocation)listView.SelectedItem;
+                editorGrid.DataContext = location;
+            }
         }
 
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            NetworkLocation location = (NetworkLocation)editorGrid.DataContext;
+        }
     }
 }

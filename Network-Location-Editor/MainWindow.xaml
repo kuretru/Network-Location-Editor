@@ -3,55 +3,60 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NetworkLocationEditor"
+        xmlns:local="clr-namespace:NetworkLocationEditor.Util"
         mc:Ignorable="d"
         Title="网络位置编辑器" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinHeight="350" MinWidth="700">
+    <Window.Resources>
+        <local:NetworkCategoryConverter x:Key="NetworkCategoryConverter"/>
+    </Window.Resources>
     <DockPanel Margin="10">
         <GroupBox Header="列表控制" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" DockPanel.Dock="Top">
             <StackPanel Margin="0" Orientation="Horizontal" Width="762">
-                <Button x:Name="RefreshButton" Content="刷新" Width="96" Height="32" Margin="10" Click="RefreshButton_Click"/>
-                <Button x:Name="DeleteButton" Content="删除" Width="96" Height="32" Margin="10" Click="DeleteButton_Click"/>
-                <Button x:Name="CleanButton" Content="清理无效配置" Width="96" Height="32" Margin="10" Click="CleanButton_Click"/>
-                <Label x:Name="ListCountLabel" Content="网络配置计数" Margin="50,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Button Content="刷新" Width="96" Height="32" Margin="10" Click="RefreshButton_Click"/>
+                <Button Content="删除" Width="96" Height="32" Margin="10" Click="DeleteButton_Click"/>
+                <Button Content="清理无效配置" Width="96" Height="32" Margin="10" Click="CleanButton_Click"/>
+                <Label x:Name="listCountLabel" Content="网络配置计数" Margin="50,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="网络位置编辑" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
-            <Grid Margin="0">
+        <GroupBox Header="网络位置编辑" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="0">
+            <Grid x:Name="editorGrid" Margin="0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="111*"/>
+                    <ColumnDefinition Width="57*"/>
+                    <ColumnDefinition Width="77"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="名称" HorizontalAlignment="Right" Margin="0,12,0,12.4" VerticalAlignment="Center"/>
-                <Label Content="描述" HorizontalAlignment="Right" Margin="0,11.6,0,12" Grid.Row="1" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" Margin="5,17,0,15.4" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" Margin="5,16.6,0,15" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                <Label Content="名称" HorizontalAlignment="Right" Margin="0,12,0,13.4" VerticalAlignment="Center"/>
+                <Label Content="描述" HorizontalAlignment="Right" Margin="0,10.6,0,13" Grid.Row="1" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" Margin="5,17,0,15.4" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Name}" Height="18"/>
+                <TextBox Grid.Column="1" Margin="5,16.6,0,15" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Description}" Height="18"/>
                 <Label Content="网关MAC" Grid.Column="2" HorizontalAlignment="Right" Margin="0,12,0,12.4" VerticalAlignment="Center"/>
                 <Label Content="域名后缀" Grid.Column="2" HorizontalAlignment="Right" Margin="0,11.6,0,12" Grid.Row="1" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="3" Margin="5,17,0,15.4" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="3" Margin="5,16.6,0,15" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="3" Margin="5,17,0,15.4" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding DefaultGatewayMac}" Height="18" IsEnabled="False"/>
+                <TextBox Grid.Column="3" Margin="5,16.6,0,15" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding DnsSuffix}" Height="18" IsEnabled="False"/>
                 <Label Content="网络类别" Grid.Column="4" HorizontalAlignment="Right" Margin="0,12,0,12.4" VerticalAlignment="Center"/>
-                <ComboBox Grid.Column="5" Margin="5,0,0,0" VerticalAlignment="Center">
-                    <ComboBoxItem Content="公有网络"/>
-                    <ComboBoxItem Content="专有网络"/>
+                <ComboBox x:Name="categoryComboBox" Grid.Column="5" Margin="5,14,0,14.4" VerticalAlignment="Center" SelectedIndex="{Binding Category}">
+                    <ComboBoxItem Content="公用网络"/>
+                    <ComboBoxItem Content="专用网络"/>
                 </ComboBox>
+                <Button Content="保存" Grid.Column="7" Margin="0,0,5,0" VerticalAlignment="Center" Width="72" Height="24" Click="SaveButton_Click"/>
             </Grid>
         </GroupBox>
-        <ListView x:Name="listView" Margin="1,10,0,0" SelectionChanged="ListView_SelectionChanged">
+        <ListView x:Name="listView" Margin="1,10,0,10" SelectionChanged="ListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="名称" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="网关MAC地址" DisplayMemberBinding="{Binding DefaultGatewayMac}"/>
                     <GridViewColumn Header="域名后缀" DisplayMemberBinding="{Binding DnsSuffix}"/>
-                    <GridViewColumn Header="网络类别" DisplayMemberBinding="{Binding Category}"/>
+                    <GridViewColumn Header="网络类别" DisplayMemberBinding="{Binding Category, Converter={StaticResource NetworkCategoryConverter}}"/>
                     <GridViewColumn Header="创建时间" DisplayMemberBinding="{Binding DateCreated, StringFormat=yyyy-MM-dd hh:mm:ss}"/>
                     <GridViewColumn Header="上一次连接时间" DisplayMemberBinding="{Binding DateLastConnected, StringFormat=yyyy-MM-dd hh:mm:ss}"/>
                 </GridView>

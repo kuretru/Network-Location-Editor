@@ -34,7 +34,7 @@ namespace NetworkLocationEditor.Entity
         public string Description { get => description; set => description = value; }
         public string DefaultGatewayMac { get => defaultGatewayMac; set => defaultGatewayMac = value; }
         public string DnsSuffix { get => dnsSuffix; set => dnsSuffix = value; }
-        public string Category { get => category == 1 ? "专用网络" : "公用网络"; set => category = value == "专用网络" ? 1 : 0; }
+        public int Category { get => category; set => category = value; }
         public DateTime DateCreated { get => dateCreated; set => dateCreated = value; }
         public DateTime DateLastConnected { get => dateLastConnected; set => dateLastConnected = value; }
     }

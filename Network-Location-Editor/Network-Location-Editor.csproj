@@ -85,6 +85,7 @@
     <Compile Include="Manager\INetworkLocationManager.cs" />
     <Compile Include="Manager\NetworkLocationManager.cs" />
     <Compile Include="Util\BinDateConverter.cs" />
+    <Compile Include="Util\NetworkCategoryConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
