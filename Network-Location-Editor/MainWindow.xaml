@@ -50,7 +50,7 @@
                 <Button Content="保存" Grid.Column="7" Margin="0,0,5,0" VerticalAlignment="Center" Width="72" Height="24" Click="SaveButton_Click"/>
             </Grid>
         </GroupBox>
-        <ListView x:Name="listView" Margin="1,10,0,10" SelectionChanged="ListView_SelectionChanged">
+        <ListView x:Name="listView" Margin="1,10,0,10" SelectionChanged="ListView_SelectionChanged" GridViewColumnHeader.Click="ListView_HeaderClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="名称" DisplayMemberBinding="{Binding Name}"/>

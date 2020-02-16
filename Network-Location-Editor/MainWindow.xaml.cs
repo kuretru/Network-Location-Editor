@@ -1,8 +1,10 @@
 ﻿using NetworkLocationEditor.Entity;
 using NetworkLocationEditor.Manager;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace NetworkLocationEditor
 {
@@ -106,8 +108,62 @@ namespace NetworkLocationEditor
             if (listView.SelectedItem != null)
             {
                 NetworkLocation location = (NetworkLocation)listView.SelectedItem;
-                editorGrid.DataContext = location.Clone() ;
+                editorGrid.DataContext = location.Clone();
             }
         }
+
+        /// <summary>
+        /// Copyed from https://docs.microsoft.com/en-us/dotnet/framework/wpf/controls/how-to-sort-a-gridview-column-when-a-header-is-clicked?redirectedfrom=MSDN
+        /// </summary>
+        private GridViewColumnHeader lastHeaderClicked = null;
+
+        private ListSortDirection lastDirection = ListSortDirection.Ascending;
+
+        private void ListView_HeaderClick(object sender, RoutedEventArgs e)
+        {
+            var headerClicked = e.OriginalSource as GridViewColumnHeader;
+            ListSortDirection direction;
+            if (headerClicked != null)
+            {
+                if (headerClicked.Role != GridViewColumnHeaderRole.Padding)
+                {
+                    if (headerClicked != lastHeaderClicked)
+                    {
+                        direction = ListSortDirection.Ascending;
+                    }
+                    else
+                    {
+                        direction = lastDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending;
+                    }
+                    var columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
+                    var sortBy = columnBinding?.Path.Path ?? headerClicked.Column.Header as string;
+                    Sort(sortBy, direction);
+                    if (direction == ListSortDirection.Ascending)
+                    {
+                        headerClicked.Column.HeaderTemplate = Resources["HeaderTemplateArrowUp"] as DataTemplate;
+                    }
+                    else
+                    {
+                        headerClicked.Column.HeaderTemplate = Resources["HeaderTemplateArrowDown"] as DataTemplate;
+                    }
+                    if (lastHeaderClicked != null && lastHeaderClicked != headerClicked)
+                    {
+                        lastHeaderClicked.Column.HeaderTemplate = null;
+                    }
+                    lastHeaderClicked = headerClicked;
+                    lastDirection = direction;
+                }
+            }
+        }
+
+        private void Sort(string sortBy, ListSortDirection direction)
+        {
+            ICollectionView dataView = CollectionViewSource.GetDefaultView(listView.ItemsSource);
+            dataView.SortDescriptions.Clear();
+            SortDescription sd = new SortDescription(sortBy, direction);
+            dataView.SortDescriptions.Add(sd);
+            dataView.Refresh();
+        }
+
     }
 }
