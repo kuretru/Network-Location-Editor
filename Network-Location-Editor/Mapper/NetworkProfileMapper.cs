@@ -40,6 +40,26 @@ namespace NetworkLocationEditor.Mapper
             return result;
         }
 
+        public void Update(NetworkProfile record)
+        {
+            if (record == null || record.Id == null || record.ProfileName == null || record.ProfileName.Trim().Length == 0)
+            {
+                return;
+            }
+            RegistryKey localMachine = Registry.LocalMachine;
+            RegistryKey parent = localMachine.OpenSubKey(PATH);
+            string[] profiles = parent.GetSubKeyNames();
+            if (Array.Exists(profiles, element => element == record.Id))
+            {
+                using (RegistryKey profile = parent.OpenSubKey(record.Id, true))
+                {
+                    profile.SetValue("Category", record.Category);
+                    profile.SetValue("Description", record.Description);
+                    profile.SetValue("ProfileName", record.ProfileName);
+                }
+            }
+        }
+
         public void Remove(string id)
         {
             if (id == null || id.Trim().Length == 0)
@@ -56,5 +76,6 @@ namespace NetworkLocationEditor.Mapper
                 }
             }
         }
+
     }
 }

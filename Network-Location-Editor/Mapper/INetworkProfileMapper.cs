@@ -13,6 +13,12 @@ namespace NetworkLocationEditor.Mapper
         List<NetworkProfile> List();
 
         /// <summary>
+        /// 更新指定Profile
+        /// </summary>
+        /// <param name="record">指定Profile</param>
+        void Update(NetworkProfile record);
+
+        /// <summary>
         /// 根据ID删除指定NetworkProfile
         /// </summary>
         /// <param name="id">ID</param>

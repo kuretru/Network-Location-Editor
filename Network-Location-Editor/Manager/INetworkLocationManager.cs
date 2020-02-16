@@ -19,6 +19,12 @@ namespace NetworkLocationEditor.Manager
         List<NetworkLocation> ListInvalid();
 
         /// <summary>
+        /// 更新指定NetworkLocation
+        /// </summary>
+        /// <param name="record">指定NetworkLocation</param>
+        void Update(NetworkLocation record);
+
+        /// <summary>
         /// 删除指定NetworkLocation
         /// </summary>
         /// <param name="record">指定NetworkLocation</param>

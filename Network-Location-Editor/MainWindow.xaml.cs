@@ -78,6 +78,18 @@ namespace NetworkLocationEditor
             }
         }
 
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            NetworkLocation location = (NetworkLocation)editorGrid.DataContext;
+            if (location.Name.Trim().Length == 0)
+            {
+                MessageBox.Show("网络名称不能为空", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            networkLocationManager.Update(location);
+            RefreshList();
+        }
+
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IList<object> removedList = (IList<object>)e.RemovedItems;
@@ -96,11 +108,6 @@ namespace NetworkLocationEditor
                 NetworkLocation location = (NetworkLocation)listView.SelectedItem;
                 editorGrid.DataContext = location;
             }
-        }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            NetworkLocation location = (NetworkLocation)editorGrid.DataContext;
         }
     }
 }

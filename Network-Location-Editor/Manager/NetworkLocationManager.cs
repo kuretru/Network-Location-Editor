@@ -71,6 +71,21 @@ namespace NetworkLocationEditor.Manager
             return result;
         }
 
+        public void Update(NetworkLocation record)
+        {
+            if (record == null || record.ProfileId == null || record.SignatureId == null)
+            {
+                return;
+            }
+            NetworkProfile profile = new NetworkProfile(record.ProfileId);
+            NetworkSignature signature = new NetworkSignature(record.SignatureId);
+            profile.Category = record.Category;
+            profile.Description = signature.Description = record.Description;
+            profile.ProfileName = signature.FirstNetwork = record.Name;
+            networkProfileMapper.Update(profile);
+            networkSignatureMapper.Update(signature);
+        }
+
         public void Remove(NetworkLocation record)
         {
             if (record == null)

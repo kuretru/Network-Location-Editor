@@ -34,6 +34,25 @@ namespace NetworkLocationEditor.Mapper
             return result;
         }
 
+        public void Update(NetworkSignature record)
+        {
+            if (record == null || record.Id == null || record.FirstNetwork == null || record.FirstNetwork.Trim().Length == 0)
+            {
+                return;
+            }
+            RegistryKey localMachine = Registry.LocalMachine;
+            RegistryKey parent = localMachine.OpenSubKey(PATH);
+            string[] profiles = parent.GetSubKeyNames();
+            if (Array.Exists(profiles, element => element == record.Id))
+            {
+                using (RegistryKey profile = parent.OpenSubKey(record.Id, true))
+                {
+                    profile.SetValue("Description", record.Description);
+                    profile.SetValue("FirstNetwork", record.FirstNetwork);
+                }
+            }
+        }
+
         public void Remove(string id)
         {
             if (id == null || id.Trim().Length == 0)
