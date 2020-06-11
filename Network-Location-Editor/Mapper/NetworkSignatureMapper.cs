@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32;
-using NetworkLocationEditor.Entity;
+﻿using Kuretru.NetworkLocationEditor.Entity;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 
-namespace NetworkLocationEditor.Mapper
+namespace Kuretru.NetworkLocationEditor.Mapper
 {
     class NetworkSignatureMapper : INetworkSignatureMapper
     {

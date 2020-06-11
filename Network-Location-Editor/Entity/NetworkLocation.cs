@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetworkLocationEditor.Entity
+namespace Kuretru.NetworkLocationEditor.Entity
 {
     class NetworkLocation
     {

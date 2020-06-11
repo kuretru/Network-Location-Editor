@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetworkLocationEditor.Util
+namespace Kuretru.NetworkLocationEditor.Util
 {
     class BinDateConverter
     {

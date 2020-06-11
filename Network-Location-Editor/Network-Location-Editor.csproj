@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{158B32E2-0069-4732-9145-4EDC4F5DE519}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>NetworkLocationEditor</RootNamespace>
+    <RootNamespace>Kuretru.NetworkLocationEditor</RootNamespace>
     <AssemblyName>Network-Location-Editor</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

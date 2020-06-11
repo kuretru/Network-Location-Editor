@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace NetworkLocationEditor.Util
+namespace Kuretru.NetworkLocationEditor.Util
 {
     class NetworkCategoryConverter : IValueConverter
     {

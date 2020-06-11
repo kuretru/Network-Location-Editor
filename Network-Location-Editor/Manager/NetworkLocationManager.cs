@@ -1,8 +1,8 @@
-﻿using NetworkLocationEditor.Entity;
-using NetworkLocationEditor.Mapper;
+﻿using Kuretru.NetworkLocationEditor.Entity;
+using Kuretru.NetworkLocationEditor.Mapper;
 using System.Collections.Generic;
 
-namespace NetworkLocationEditor.Manager
+namespace Kuretru.NetworkLocationEditor.Manager
 {
     class NetworkLocationManager : INetworkLocationManager
     {

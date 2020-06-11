@@ -1,7 +1,7 @@
-﻿using NetworkLocationEditor.Entity;
+﻿using Kuretru.NetworkLocationEditor.Entity;
 using System.Collections.Generic;
 
-namespace NetworkLocationEditor.Manager
+namespace Kuretru.NetworkLocationEditor.Manager
 {
     interface INetworkLocationManager
     {

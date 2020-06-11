@@ -1,12 +1,12 @@
-﻿using NetworkLocationEditor.Entity;
-using NetworkLocationEditor.Manager;
+﻿using Kuretru.NetworkLocationEditor.Entity;
+using Kuretru.NetworkLocationEditor.Manager;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace NetworkLocationEditor
+namespace Kuretru.NetworkLocationEditor
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
